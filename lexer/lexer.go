@@ -32,6 +32,8 @@ func (l *Lexer) GetNextToken() token.Token {
 		Literal: string(l.ch[0]),
 	}
 	switch l.ch[0] {
+	case 0:
+		tok.Kind = token.KindEOF
 	case '"':
 		l.readChar()
 		tok.Kind = token.KindString
