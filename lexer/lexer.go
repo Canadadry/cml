@@ -117,6 +117,9 @@ func (l *Lexer) readIdentifier() string {
 func (l *Lexer) readString() string {
 	litteral := ""
 	for l.ch[0] != '"' && l.ch[0] != 0 {
+		if l.ch[0] == '\\' && l.ch[1] == '"' {
+			l.readChar()
+		}
 		litteral += string(l.ch[0])
 		l.readChar()
 	}

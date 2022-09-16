@@ -104,7 +104,7 @@ func TestLexer(t *testing.T) {
 			},
 		},
 		"number and other value": {
-			in: strings.NewReader(`1 1.23 -1 -1.23 true false`),
+			in: strings.NewReader(`1 1.23 -1 -1.23 true false "quote:\""`),
 			out: []token.Token{
 				{Kind: token.KindInt, Literal: "1"},
 				{Kind: token.KindFloat, Literal: "1.23"},
@@ -112,6 +112,7 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindFloat, Literal: "-1.23"},
 				{Kind: token.KindTrue, Literal: "true"},
 				{Kind: token.KindFalse, Literal: "false"},
+				{Kind: token.KindString, Literal: `quote:"`},
 				{Kind: token.KindEOF, Literal: "\x00"},
 			},
 		},
@@ -123,7 +124,7 @@ func TestLexer(t *testing.T) {
 			for _, tok := range tt.out {
 				next := l.GetNextToken()
 				if next != tok {
-					t.Fatalf("at line %d column %d got %#v expexted %#v", l.Line(), l.Column(), next, tok)
+					t.Fatalf("at line %d column %d \ngot %#v \nexp %#v", l.Line(), l.Column(), next, tok)
 				}
 			}
 		})
