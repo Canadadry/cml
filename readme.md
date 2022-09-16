@@ -50,12 +50,10 @@ service (
 				main (
 					command ("/usr/local/bin/awesome-app" "server")
 				)
+				mgmt (
+					command ("/usr/local/bin/awesome-app" "mgmt")
+				)
 			)
-		)
-	)
-	process (
-		mgmt (
-			command ("/usr/local/bin/awesome-app" "mgmt")
 		)
 	)
 )
@@ -64,7 +62,7 @@ service (
 But it can be minified in
 
 ```
-io_mode"async"service(http(web_proxy(listen_addr"127.0.0.1:8080"process(main(command("/usr/local/bin/awesome-app""server")))))process(mgmt(command("/usr/local/bin/awesome-app""mgmt"))))
+io_mode"async"service(http(web_proxy(listen_addr"127.0.0.1:8080"process(main(command("/usr/local/bin/awesome-app""server"))mgmt(command("/usr/local/bin/awesome-app""mgmt"))))))
 ```
 
-Why allow this short version ? Well it's only a side effect, we dont really care about white space and line return so with or without it it will work the same. 
+Why allow this short version ? Well it's only a side effect, we dont really care about white space and line return so with or without it it will work the same.
