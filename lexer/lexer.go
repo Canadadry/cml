@@ -28,6 +28,9 @@ func (l *Lexer) Line() int   { return l.line }
 func (l *Lexer) Column() int { return l.column }
 
 func (l *Lexer) GetNextToken() token.Token {
+	for isWhiteSpace(l.ch[0]) {
+		l.readChar()
+	}
 	tok := token.Token{
 		Literal: string(l.ch[0]),
 	}
@@ -46,6 +49,8 @@ func (l *Lexer) GetNextToken() token.Token {
 		l.readChar()
 	default:
 		switch {
+		case isNumeric(l.ch[0]):
+			tok.Literal, tok.Kind = l.readNumeric()
 		case isLetter(l.ch[0]):
 			tok.Kind = token.KindIdentifier
 			tok.Literal = l.readIdentifier()
@@ -87,6 +92,10 @@ func isNumeric(ch byte) bool {
 	return ch >= '0' && ch <= '9'
 }
 
+func isDot(ch byte) bool {
+	return ch == '.'
+}
+
 func (l *Lexer) readIdentifier() string {
 	litteral := ""
 	for isLetter(l.ch[0]) || isNumeric(l.ch[0]) {
@@ -104,4 +113,25 @@ func (l *Lexer) readString() string {
 	}
 	l.readChar()
 	return litteral
+}
+
+func (l *Lexer) readNumeric() (string, token.TokenKind) {
+	litteral := ""
+	for isNumeric(l.ch[0]) {
+		litteral += string(l.ch[0])
+		l.readChar()
+	}
+
+	if !isDot(l.ch[0]) {
+		return litteral, token.KindInt
+	}
+
+	litteral += string(l.ch[0])
+	l.readChar()
+
+	for isNumeric(l.ch[0]) {
+		litteral += string(l.ch[0])
+		l.readChar()
+	}
+	return litteral, token.KindFloat
 }
