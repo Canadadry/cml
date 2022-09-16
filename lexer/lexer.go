@@ -30,6 +30,10 @@ func (l *Lexer) Column() int { return l.column }
 func (l *Lexer) GetNextToken() token.Token {
 	tok := token.Token{}
 	switch l.ch[0] {
+	case '"':
+		l.readChar()
+		tok.Kind = token.KindString
+		tok.Literal = l.readString()
 	default:
 		switch {
 		case isLetter(l.ch[0]):
@@ -80,5 +84,15 @@ func (l *Lexer) readIdentifier() string {
 		litteral += string(l.ch[0])
 		l.readChar()
 	}
+	return litteral
+}
+
+func (l *Lexer) readString() string {
+	litteral := ""
+	for l.ch[0] != '"' && l.ch[0] != 0 {
+		litteral += string(l.ch[0])
+		l.readChar()
+	}
+	l.readChar()
 	return litteral
 }

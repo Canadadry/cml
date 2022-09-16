@@ -19,6 +19,10 @@ func TestLexer(t *testing.T) {
 					Kind:    token.KindIdentifier,
 					Literal: "io_mode",
 				},
+				{
+					Kind:    token.KindString,
+					Literal: "async",
+				},
 			},
 		},
 	}
