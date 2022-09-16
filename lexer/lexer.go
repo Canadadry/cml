@@ -39,6 +39,9 @@ func (l *Lexer) GetNextToken() token.Token {
 	case '(':
 		tok.Kind = token.KindLeftParenthesis
 		l.readChar()
+	case ')':
+		tok.Kind = token.KindRightParenthesis
+		l.readChar()
 	default:
 		switch {
 		case isLetter(l.ch[0]):

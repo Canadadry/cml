@@ -12,7 +12,7 @@ func TestLexer(t *testing.T) {
 		in  io.Reader
 		out []token.Token
 	}{
-		"complete example": {
+		"sample example": {
 			in: strings.NewReader(`io_mode"async"service(http(web_proxy(listen_addr"127.0.0.1:8080"process(main(command("/usr/local/bin/awesome-app""server"))mgmt(command("/usr/local/bin/awesome-app""mgmt"))))))`),
 			out: []token.Token{
 				{
@@ -30,6 +30,66 @@ func TestLexer(t *testing.T) {
 				{
 					Kind:    token.KindLeftParenthesis,
 					Literal: "(",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "http",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "web_proxy",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "listen_addr",
+				},
+				{
+					Kind:    token.KindString,
+					Literal: "127.0.0.1:8080",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "process",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "main",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "command",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
+				{
+					Kind:    token.KindString,
+					Literal: "/usr/local/bin/awesome-app",
+				},
+				{
+					Kind:    token.KindString,
+					Literal: "server",
+				},
+				{
+					Kind:    token.KindRightParenthesis,
+					Literal: ")",
 				},
 			},
 		},
