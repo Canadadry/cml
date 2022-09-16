@@ -28,6 +28,7 @@ func (l *Lexer) Line() int   { return l.line }
 func (l *Lexer) Column() int { return l.column }
 
 func (l *Lexer) GetNextToken() token.Token {
+	l.cleanWhiteSpaceAndComment()
 	for isWhiteSpace(l.ch[0]) {
 		l.readChar()
 	}
@@ -105,6 +106,14 @@ func isDot(ch byte) bool {
 	return ch == '.'
 }
 
+func isComment(ch0, ch1 byte) bool {
+	return ch0 == '#' || (ch0 == '/' && ch1 == '/')
+}
+
+func isNewLine(ch byte) bool {
+	return ch == '\n'
+}
+
 func (l *Lexer) readIdentifier() string {
 	litteral := ""
 	for isLetter(l.ch[0]) || isNumeric(l.ch[0]) {
@@ -146,4 +155,18 @@ func (l *Lexer) readNumeric() (string, token.TokenKind) {
 		l.readChar()
 	}
 	return litteral, token.KindFloat
+}
+
+func (l *Lexer) cleanWhiteSpaceAndComment() {
+	for isWhiteSpace(l.ch[0]) || isComment(l.ch[0], l.ch[1]) {
+		if isWhiteSpace(l.ch[0]) {
+			for isWhiteSpace(l.ch[0]) {
+				l.readChar()
+			}
+		} else {
+			for !isNewLine(l.ch[0]) {
+				l.readChar()
+			}
+		}
+	}
 }

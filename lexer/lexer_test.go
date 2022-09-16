@@ -116,6 +116,15 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindEOF, Literal: "\x00"},
 			},
 		},
+		"comment": {
+			in: strings.NewReader(`# signle line comment
+			// other comment style
+			test`),
+			out: []token.Token{
+				{Kind: token.KindIdentifier, Literal: "test"},
+				{Kind: token.KindEOF, Literal: "\x00"},
+			},
+		},
 	}
 
 	for title, tt := range tests {
