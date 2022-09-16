@@ -110,9 +110,9 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindFloat, Literal: "1.23"},
 				{Kind: token.KindInt, Literal: "-1"},
 				{Kind: token.KindFloat, Literal: "-1.23"},
-				// {Kind: token.KindTrue, Literal: "true"},
-				// {Kind: token.KindFalse, Literal: "false"},
-				// {Kind: token.KindEOF, Literal: "\x00"},
+				{Kind: token.KindTrue, Literal: "true"},
+				{Kind: token.KindFalse, Literal: "false"},
+				{Kind: token.KindEOF, Literal: "\x00"},
 			},
 		},
 	}

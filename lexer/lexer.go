@@ -58,6 +58,11 @@ func (l *Lexer) GetNextToken() token.Token {
 		case isLetter(l.ch[0]):
 			tok.Kind = token.KindIdentifier
 			tok.Literal = l.readIdentifier()
+			if tok.Literal == "true" {
+				tok.Kind = token.KindTrue
+			} else if tok.Literal == "false" {
+				tok.Kind = token.KindFalse
+			}
 		default:
 			tok.Kind = token.KindInvalid
 		}
