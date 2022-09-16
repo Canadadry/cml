@@ -23,6 +23,14 @@ func TestLexer(t *testing.T) {
 					Kind:    token.KindString,
 					Literal: "async",
 				},
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "service",
+				},
+				{
+					Kind:    token.KindLeftParenthesis,
+					Literal: "(",
+				},
 			},
 		},
 	}

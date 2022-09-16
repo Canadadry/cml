@@ -28,12 +28,17 @@ func (l *Lexer) Line() int   { return l.line }
 func (l *Lexer) Column() int { return l.column }
 
 func (l *Lexer) GetNextToken() token.Token {
-	tok := token.Token{}
+	tok := token.Token{
+		Literal: string(l.ch[0]),
+	}
 	switch l.ch[0] {
 	case '"':
 		l.readChar()
 		tok.Kind = token.KindString
 		tok.Literal = l.readString()
+	case '(':
+		tok.Kind = token.KindLeftParenthesis
+		l.readChar()
 	default:
 		switch {
 		case isLetter(l.ch[0]):
@@ -41,7 +46,6 @@ func (l *Lexer) GetNextToken() token.Token {
 			tok.Literal = l.readIdentifier()
 		default:
 			tok.Kind = token.KindInvalid
-			tok.Literal = string(l.ch[0])
 		}
 	}
 	return tok
