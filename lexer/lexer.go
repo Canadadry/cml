@@ -47,6 +47,10 @@ func (l *Lexer) GetNextToken() token.Token {
 	case ')':
 		tok.Kind = token.KindRightParenthesis
 		l.readChar()
+	case '-':
+		l.readChar()
+		tok.Literal, tok.Kind = l.readNumeric()
+		tok.Literal = "-" + tok.Literal
 	default:
 		switch {
 		case isNumeric(l.ch[0]):
