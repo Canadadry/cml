@@ -13,8 +13,13 @@ func TestLexer(t *testing.T) {
 		out []token.Token
 	}{
 		"complete example": {
-			in:  strings.NewReader(`io_mode"async"service(http(web_proxy(listen_addr"127.0.0.1:8080"process(main(command("/usr/local/bin/awesome-app""server"))mgmt(command("/usr/local/bin/awesome-app""mgmt"))))))`),
-			out: []token.Token{},
+			in: strings.NewReader(`io_mode"async"service(http(web_proxy(listen_addr"127.0.0.1:8080"process(main(command("/usr/local/bin/awesome-app""server"))mgmt(command("/usr/local/bin/awesome-app""mgmt"))))))`),
+			out: []token.Token{
+				{
+					Kind:    token.KindIdentifier,
+					Literal: "io_mode",
+				},
+			},
 		},
 	}
 
@@ -24,7 +29,7 @@ func TestLexer(t *testing.T) {
 			for _, tok := range tt.out {
 				next := l.GetNextToken()
 				if next != tok {
-					t.Fatalf("at line %d column %d got %v expexted %v", l.Line(), l.Column(), next, tok)
+					t.Fatalf("at line %d column %d got %#v expexted %#v", l.Line(), l.Column(), next, tok)
 				}
 			}
 		})
