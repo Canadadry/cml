@@ -47,7 +47,7 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindRightParenthesis, Literal: ")"},
 				{Kind: token.KindRightParenthesis, Literal: ")"},
 				{Kind: token.KindRightParenthesis, Literal: ")"},
-				{Kind: token.KindEOF, Literal: "\x00"},
+				{Kind: token.KindEOF, Literal: "end of file"},
 			},
 		},
 		"full sample example": {
@@ -100,7 +100,7 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindRightParenthesis, Literal: ")"},
 				{Kind: token.KindRightParenthesis, Literal: ")"},
 				{Kind: token.KindRightParenthesis, Literal: ")"},
-				{Kind: token.KindEOF, Literal: "\x00"},
+				{Kind: token.KindEOF, Literal: "end of file"},
 			},
 		},
 		"number and other value": {
@@ -113,7 +113,7 @@ func TestLexer(t *testing.T) {
 				{Kind: token.KindTrue, Literal: "true"},
 				{Kind: token.KindFalse, Literal: "false"},
 				{Kind: token.KindString, Literal: `quote:"`},
-				{Kind: token.KindEOF, Literal: "\x00"},
+				{Kind: token.KindEOF, Literal: "end of file"},
 			},
 		},
 		"comment": {
@@ -122,7 +122,7 @@ func TestLexer(t *testing.T) {
 			test`),
 			out: []token.Token{
 				{Kind: token.KindIdentifier, Literal: "test"},
-				{Kind: token.KindEOF, Literal: "\x00"},
+				{Kind: token.KindEOF, Literal: "end of file"},
 			},
 		},
 	}

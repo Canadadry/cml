@@ -16,7 +16,6 @@ const (
 	KindFalse                      = "KindFalse"
 	KindLeftParenthesis            = "KindLeftParenthesis"
 	KindRightParenthesis           = "KindRightParenthesis"
-	KindComment                    = "KindComment"
 	KindInvalid                    = "KindInvalid"
 	KindEOF                        = "KindEOF"
 )

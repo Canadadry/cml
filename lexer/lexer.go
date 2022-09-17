@@ -38,6 +38,7 @@ func (l *Lexer) GetNextToken() token.Token {
 	switch l.ch[0] {
 	case 0:
 		tok.Kind = token.KindEOF
+		tok.Literal = "end of file"
 	case '"':
 		l.readChar()
 		tok.Kind = token.KindString
