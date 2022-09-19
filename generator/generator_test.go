@@ -37,6 +37,42 @@ key_true true
 key_false false
 `,
 		},
+		"sub map": {
+			in: map[string]interface{}{
+				"key_map": map[string]interface{}{
+					"key_int":   -13,
+					"key_float": 12.34,
+					"key_true":  true,
+					"key_false": false,
+				},
+			},
+			indent: "\t",
+			out: `key_map (
+	key_int -13
+	key_float 12.34
+	key_true true
+	key_false false
+)
+`,
+		},
+		"sub array": {
+			in: map[string]interface{}{
+				"key_array": []interface{}{
+					-13,
+					12.34,
+					true,
+					false,
+				},
+			},
+			indent: "\t",
+			out: `key_array (
+	-13
+	12.34
+	true
+	false
+)
+`,
+		},
 	}
 
 	for title, tt := range tests {
