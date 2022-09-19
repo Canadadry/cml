@@ -1,5 +1,50 @@
 # Canadadry Markup Language (CML)
 
+
+## What does it do
+
+You should use it as a library like this:
+
+```go
+import(
+	"github.com/Canadadry/cml"
+	"fmt"
+)
+
+func main(){
+	out,err := cml.Parse(`io_mode "async"
+service (
+	http (
+		web_proxy (
+			listen_addr "127.0.0.1:8080"
+			process (
+				main (
+					command ("/usr/local/bin/awesome-app" "server")
+				)
+				mgmt (
+					command ("/usr/local/bin/awesome-app" "mgmt")
+				)
+			)
+		)
+	)
+)`)
+	if err != nil{
+		fmt.Prinln("error",err)
+	}
+	fmt.Println(out)
+}
+```
+
+But we also provide some utilities like `FromJson`, `ToJson` and `Prettify` via cli :
+
+```bash
+cml from "json" config.json > config.cml
+cml to "json" conf.cml > config.json
+cmt pretty conf.cml > conf.cml
+```
+
+## Why
+
 Why another json,yml,toml, ... format. Well, firstly for fun and because I can. Secondly I found those language either too verbose, or to complex to edit.
 
 I toke a look at [hashicorp](https://github.com/hashicorp/hcl) which simplify but add some feature I dont want.
