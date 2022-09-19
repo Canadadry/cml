@@ -13,12 +13,29 @@ func TestGenerate(t *testing.T) {
 		out    string
 	}{
 		"one key value": {
-			in:  map[string]interface{}{"key": "value"},
-			out: `key "value"`,
+			in: map[string]interface{}{"key": "value"},
+			out: `key "value"
+`,
 		},
 		"one key value with quoted quote": {
-			in:  map[string]interface{}{"key": "va\"lue"},
-			out: `key "va\"lue"`,
+			in: map[string]interface{}{"key": "va\"lue"},
+			out: `key "va\"lue"
+`,
+		},
+		"multi key value with scalar value": {
+			in: map[string]interface{}{
+				"key_str":   "value",
+				"key_int":   -13,
+				"key_float": 12.34,
+				"key_true":  true,
+				"key_false": false,
+			},
+			out: `key_str "value"
+key_int -13
+key_float 12.34
+key_true true
+key_false false
+`,
 		},
 	}
 
