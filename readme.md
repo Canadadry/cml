@@ -38,9 +38,9 @@ service (
 But we also provide some utilities like `FromJson`, `ToJson` and `Prettify` via cli :
 
 ```bash
-cml from "json" config.json > config.cml
-cml to "json" conf.cml > config.json
-cmt pretty conf.cml > conf.cml
+cml -action "from_json" -in config.json > config.cml
+cml -action "to_json" -in conf.cml > config.json
+cmt -action "pretty" -in conf.cml > conf.cml
 ```
 
 ## Why
